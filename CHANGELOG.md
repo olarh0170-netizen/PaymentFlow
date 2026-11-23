@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Documentation
 
 - **School finance administrator guide (#642)**: Added a text-first guide to current student, fee, payment, dispute, and reporting workflows. Screenshots and stakeholder approval remain pending because the existing frontend does not build and no local API/data service is available.
+- **Environment configuration reference (#643)**: Added a typed `.env.example` guide, completed missing runtime variables, corrected sensitivity/default classifications, and added CI-tested completeness checks.
 
 ### Dependencies
 

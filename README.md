@@ -852,6 +852,7 @@ PaymentFlow/
 | [`docs/payment-lifecycle.md`](docs/payment-lifecycle.md) | Payment status, confirmation, retry, and reconciliation lifecycle |
 | [`docs/environment-reference.md`](docs/environment-reference.md) | Complete environment-variable ownership and secret-sensitivity reference |
 | [`docs/user-guide/admin-guide.md`](docs/user-guide/admin-guide.md) | School finance administrator guide for fees, students, payments, disputes, and reports |
+| [`docs/configuration.md`](docs/configuration.md) | Environment variable types, defaults, sensitivity, and examples |
 
 ---
 
