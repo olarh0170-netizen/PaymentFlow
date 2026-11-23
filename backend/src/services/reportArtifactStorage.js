@@ -24,6 +24,13 @@ function getS3Client() {
   return client;
 }
 
+/**
+ * Provides the store report artifact operation in reportArtifactStorage.
+ * @param {string} key - Value used by storeReportArtifact.
+ * @param {*} body - Value used by storeReportArtifact.
+ * @param {string} contentType - Value used by storeReportArtifact.
+ * @returns {Promise<void>} Completes without a return value.
+ */
 async function storeReportArtifact(key, body, contentType) {
   await getS3Client().send(new PutObjectCommand({
     Bucket: process.env.REPORTS_S3_BUCKET,
@@ -34,6 +41,12 @@ async function storeReportArtifact(key, body, contentType) {
   }));
 }
 
+/**
+ * Creates or prepares report download url in reportArtifactStorage.
+ * @param {string} key - Value used by createReportDownloadUrl.
+ * @param {*} expiresIn - Value used by createReportDownloadUrl.
+ * @returns {*} Result produced by createReportDownloadUrl.
+ */
 function createReportDownloadUrl(key, expiresIn = SIGNED_URL_TTL_SECONDS) {
   const command = new GetObjectCommand({
     Bucket: process.env.REPORTS_S3_BUCKET,

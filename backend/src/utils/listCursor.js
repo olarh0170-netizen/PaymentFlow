@@ -15,6 +15,12 @@ function filtersFingerprint(filters) {
   return crypto.createHash('sha256').update(JSON.stringify(filters)).digest('hex');
 }
 
+/**
+ * Provides the encode list cursor operation in listCursor.
+ * @param {object} record - Value used by encodeListCursor.
+ * @param {*} filters - Value used by encodeListCursor.
+ * @returns {*} Result produced by encodeListCursor.
+ */
 function encodeListCursor(record, filters) {
   const payload = {
     createdAt: new Date(record.createdAt).toISOString(),
@@ -27,6 +33,12 @@ function encodeListCursor(record, filters) {
   return Buffer.from(JSON.stringify({ data, signature })).toString('base64url');
 }
 
+/**
+ * Computes or normalizes list cursor in listCursor.
+ * @param {string} token - Value used by decodeListCursor.
+ * @param {*} filters - Value used by decodeListCursor.
+ * @returns {*} Result produced by decodeListCursor.
+ */
 function decodeListCursor(token, filters) {
   let envelope;
   try {
@@ -70,6 +82,11 @@ function decodeListCursor(token, filters) {
   return payload;
 }
 
+/**
+ * Provides the cursor condition operation in listCursor.
+ * @param {object} payload - Value used by cursorCondition.
+ * @returns {*} Result produced by cursorCondition.
+ */
 function cursorCondition(payload) {
   const createdAt = new Date(payload.createdAt);
   return {

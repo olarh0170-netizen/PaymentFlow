@@ -100,7 +100,7 @@ function buildReminderEmail({ studentName, studentId, className, feeAmount, rema
  * @param {number} opts.reminderCount
  * @param {number} [opts.escalationLevel=1] - 1=early, 2=approaching, 3=overdue
  * @param {Date|null} [opts.paymentDeadline] - Payment deadline date
- * @returns {Promise<{sent: boolean, messageId?: string, preview?: string, suppressed?: boolean}>}
+ * @returns {Promise<object>} Send result with delivery metadata when available.
  */
 async function sendFeeReminder(opts) {
   const token = generateUnsubscribeToken(opts.studentId, opts.schoolId || 'unknown', config.JWT_SECRET);
@@ -207,7 +207,7 @@ function buildReminderSMS({ studentName, className, feeAmount, remainingBalance,
  * @param {number} opts.reminderCount
  * @param {number} [opts.escalationLevel=1]
  * @param {Date|null} [opts.paymentDeadline]
- * @returns {Promise<{sent: boolean, sid?: string}>}
+ * @returns {Promise<object>} Send result and provider message identifier when available.
  */
 async function sendSmsReminder(opts) {
   const message = buildReminderSMS(opts);
@@ -244,7 +244,7 @@ async function sendSmsReminder(opts) {
  * @param {number} opts.reminderCount
  * @param {number} [opts.escalationLevel=1]
  * @param {Date|null} [opts.paymentDeadline]
- * @returns {Promise<{sent: boolean, sid?: string}>}
+ * @returns {Promise<object>} Send result and provider message identifier when available.
  */
 async function sendWhatsAppReminder(opts) {
   const message = buildReminderSMS(opts);

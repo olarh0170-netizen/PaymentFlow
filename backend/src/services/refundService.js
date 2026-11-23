@@ -26,6 +26,16 @@ function refundLockKey(schoolId, originalTxHash) {
   return `refund:lock:${schoolId}:${originalTxHash}`;
 }
 
+/**
+ * Provides the initiate refund operation in refundService.
+ * @param {string} schoolId - Value used by initiateRefund.
+ * @param {string} originalTxHash - Value used by initiateRefund.
+ * @param {string} studentId - Value used by initiateRefund.
+ * @param {number} amount - Value used by initiateRefund.
+ * @param {string} reason - Value used by initiateRefund.
+ * @param {*} initiatedBy - Value used by initiateRefund.
+ * @returns {Promise<*>} Result produced by initiateRefund.
+ */
 async function initiateRefund(schoolId, originalTxHash, studentId, amount, reason, initiatedBy) {
   const lockKey = refundLockKey(schoolId, originalTxHash);
   const acquired = await lock.acquire(lockKey, REFUND_LOCK_TTL_MS);
@@ -104,6 +114,12 @@ async function initiateRefund(schoolId, originalTxHash, studentId, amount, reaso
   }
 }
 
+/**
+ * Provides the approve refund operation in refundService.
+ * @param {string} refundId - Value used by approveRefund.
+ * @param {*} approvedBy - Value used by approveRefund.
+ * @returns {Promise<*>} Result produced by approveRefund.
+ */
 async function approveRefund(refundId, approvedBy) {
   const refund = await Refund.findById(refundId);
   if (!refund) {
@@ -171,6 +187,14 @@ const REFUND_STATUS_TRANSITIONS = {
 // All statuses that are defined on the Refund model.
 const VALID_REFUND_STATUSES = Object.keys(REFUND_STATUS_TRANSITIONS);
 
+/**
+ * Updates refund status in refundService.
+ * @param {string} refundId - Value used by updateRefundStatus.
+ * @param {string} newStatus - Value used by updateRefundStatus.
+ * @param {string} txHash - Value used by updateRefundStatus.
+ * @param {string} failureReason - Value used by updateRefundStatus.
+ * @returns {Promise<*>} Result produced by updateRefundStatus.
+ */
 async function updateRefundStatus(refundId, newStatus, txHash = null, failureReason = null) {
   // ── 1. Validate newStatus against the model enum before touching the DB ──
   if (!VALID_REFUND_STATUSES.includes(newStatus)) {
@@ -268,10 +292,22 @@ async function updateRefundStatus(refundId, newStatus, txHash = null, failureRea
   }
 }
 
+/**
+ * Retrieves refunds by payment from refundService.
+ * @param {string} schoolId - Value used by getRefundsByPayment.
+ * @param {string} originalTxHash - Value used by getRefundsByPayment.
+ * @returns {Promise<*>} Result produced by getRefundsByPayment.
+ */
 async function getRefundsByPayment(schoolId, originalTxHash) {
   return Refund.find({ schoolId, originalTxHash }).sort({ createdAt: -1 }).lean();
 }
 
+/**
+ * Retrieves refunds by school from refundService.
+ * @param {string} schoolId - Value used by getRefundsBySchool.
+ * @param {string} status - Value used by getRefundsBySchool.
+ * @returns {Promise<*>} Result produced by getRefundsBySchool.
+ */
 async function getRefundsBySchool(schoolId, status = null) {
   const query = { schoolId };
   if (status) query.status = status;

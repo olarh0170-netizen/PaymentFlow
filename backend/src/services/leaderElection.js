@@ -21,6 +21,12 @@ let _acquireTimer = null;
 let _callbacks = { onElected: [], onDemoted: [] };
 let _running = false;
 
+/**
+ * Creates or prepares a resource in leaderElection.
+ * @param {Function} onElected - Value used by register.
+ * @param {Function} onDemoted - Value used by register.
+ * @returns {void} Completes without a return value.
+ */
 function register(onElected, onDemoted) {
   if (typeof onElected === 'function') _callbacks.onElected.push(onElected);
   if (typeof onDemoted === 'function') _callbacks.onDemoted.push(onDemoted);
@@ -90,6 +96,10 @@ function _stopAcquire() {
   }
 }
 
+/**
+ * Manages the module lifecycle for leaderElection.
+ * @returns {Promise<void>} Completes without a return value.
+ */
 async function start() {
   if (_running) return;
   _running = true;
@@ -132,6 +142,10 @@ async function start() {
   _startAcquire();
 }
 
+/**
+ * Manages the module lifecycle for leaderElection.
+ * @returns {Promise<void>} Completes without a return value.
+ */
 async function stop() {
   _running = false;
   _stopAcquire();
@@ -146,10 +160,18 @@ async function stop() {
   logger.info('Leader election stopped');
 }
 
+/**
+ * Validates leader in leaderElection.
+ * @returns {*} Result produced by isLeader.
+ */
 function isLeader() {
   return _isLeader;
 }
 
+/**
+ * Retrieves fencing token from leaderElection.
+ * @returns {*} Result produced by getFencingToken.
+ */
 function getFencingToken() {
   return _fencingToken;
 }

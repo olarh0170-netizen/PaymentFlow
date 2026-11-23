@@ -186,12 +186,20 @@ async function _runScheduledReconciliation() {
   }
 }
 
+/**
+ * Manages metrics rollup scheduler for metricsRollupService.
+ * @returns {void} Completes without a return value.
+ */
 function startMetricsRollupScheduler() {
   if (_timer) return;
   _timer = setInterval(_runScheduledReconciliation, RECONCILE_INTERVAL_MS);
   _timer.unref();
 }
 
+/**
+ * Manages metrics rollup scheduler for metricsRollupService.
+ * @returns {void} Completes without a return value.
+ */
 function stopMetricsRollupScheduler() {
   if (_timer) { clearInterval(_timer); _timer = null; }
 }
