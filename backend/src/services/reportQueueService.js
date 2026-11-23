@@ -42,6 +42,10 @@ async function processReportJob(job) {
 
 let worker = null;
 
+/**
+ * Manages worker for reportQueueService.
+ * @returns {*} Result produced by startWorker.
+ */
 function startWorker() {
   if (worker) return worker;
   createQueue();
@@ -52,6 +56,10 @@ function startWorker() {
   return worker;
 }
 
+/**
+ * Manages worker for reportQueueService.
+ * @returns {Promise<void>} Completes without a return value.
+ */
 async function stopWorker() {
   if (worker) {
     await worker.close();

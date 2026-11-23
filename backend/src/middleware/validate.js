@@ -28,6 +28,12 @@ const {
   updateSchoolSchema,
 } = require('./schemas/requestLimitSchemas');
 
+/**
+ * Validates the supplied input in validate.
+ * @param {*} schema - Value used by validate.
+ * @param {*} source - Value used by validate.
+ * @returns {*} Result produced by validate.
+ */
 function validate(schema, source = 'body') {
   return (req, res, next) => {
     const { error, value } = schema.validate(req[source], {
@@ -124,6 +130,13 @@ function validateRegisterStudent(req, res, next) {
   return next();
 }
 
+/**
+ * Validates fee structure in validate.
+ * @param {object} req - Value used by validateFeeStructure.
+ * @param {object} res - Value used by validateFeeStructure.
+ * @param {Function} next - Value used by validateFeeStructure.
+ * @returns {*} Result produced by validateFeeStructure.
+ */
 function validateFeeStructure(req, res, next) {
   const { className, feeAmount } = req.body;
   const errors = [];

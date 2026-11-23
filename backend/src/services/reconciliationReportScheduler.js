@@ -6,6 +6,10 @@ const logger = require('../utils/logger').child('ReconciliationReportScheduler')
 const INTERVAL_MS = parseInt(process.env.RECONCILIATION_REPORT_INTERVAL_MS, 10) || 24 * 60 * 60 * 1000;
 let _timer = null;
 
+/**
+ * Manages reconciliation report scheduler for reconciliationReportScheduler.
+ * @returns {void} Completes without a return value.
+ */
 function startReconciliationReportScheduler() {
   if (_timer) return;
   _timer = setInterval(async () => {
@@ -19,6 +23,10 @@ function startReconciliationReportScheduler() {
   logger.info('Reconciliation report scheduler started');
 }
 
+/**
+ * Manages reconciliation report scheduler for reconciliationReportScheduler.
+ * @returns {void} Completes without a return value.
+ */
 function stopReconciliationReportScheduler() {
   if (_timer) {
     clearInterval(_timer);

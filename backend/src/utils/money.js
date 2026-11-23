@@ -69,6 +69,12 @@ function compareMoney(a, b) {
   return unitsA < unitsB ? -1 : unitsA > unitsB ? 1 : 0;
 }
 
+/**
+ * Provides the money equals operation in money.
+ * @param {*} a - Value used by moneyEquals.
+ * @param {*} b - Value used by moneyEquals.
+ * @returns {*} Result produced by moneyEquals.
+ */
 function moneyEquals(a, b) {
   return compareMoney(a, b) === 0;
 }

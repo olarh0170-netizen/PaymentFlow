@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **School finance administrator guide (#642)**: Added a text-first guide to current student, fee, payment, dispute, and reporting workflows. Screenshots and stakeholder approval remain pending because the existing frontend does not build and no local API/data service is available.
 - **Environment configuration reference (#643)**: Added a typed `.env.example` guide, completed missing runtime variables, corrected sensitivity/default classifications, and added CI-tested completeness checks.
 - **Backup and recovery runbook (#644)**: Documented the current backup schedule, restore verification, retention, recovery targets, and alert escalation; linked existing backup guidance to the canonical runbook.
+- **Backend JSDoc generation (#645)**: Added exported-function JSDoc coverage, parser support for BigInt literals, and a CI documentation-build check.
 
 ### Dependencies
 

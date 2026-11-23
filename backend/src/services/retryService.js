@@ -28,6 +28,10 @@ function nextRetryDelay(attempts) {
   return new Date(Date.now() + delayMs);
 }
 
+/**
+ * Validates stellar reachable in retryService.
+ * @returns {Promise<*>} Result produced by isStellarReachable.
+ */
 async function isStellarReachable() {
   try {
     await withStellarRetry(
@@ -94,7 +98,7 @@ async function getBacklogCounts() {
 
 /**
  * List dead-lettered verifications, newest first.
- * @param {{ limit?: number, skip?: number, schoolId?: string }} opts
+ * @param {object} opts - Optional pagination settings and school scope.
  */
 async function listDeadLetters({ limit = 50, skip = 0, schoolId = null } = {}) {
   const query = { status: "dead_letter" };
@@ -147,6 +151,10 @@ async function redriveDeadLetter(id) {
 let _running = false;
 let _timer = null;
 
+/**
+ * Processes pending verifications in retryService.
+ * @returns {Promise<void>} Completes without a return value.
+ */
 async function processPendingVerifications() {
   if (_running) return;
   _running = true;
@@ -314,6 +322,10 @@ async function processPendingVerifications() {
   }
 }
 
+/**
+ * Manages retry worker for retryService.
+ * @returns {void} Completes without a return value.
+ */
 function startRetryWorker() {
   if (_timer) return;
   logger.info(
@@ -327,6 +339,10 @@ function startRetryWorker() {
   _timer = setInterval(processPendingVerifications, RETRY_INTERVAL_MS);
 }
 
+/**
+ * Manages retry worker for retryService.
+ * @returns {void} Completes without a return value.
+ */
 function stopRetryWorker() {
   if (_timer) {
     clearInterval(_timer);
@@ -339,6 +355,10 @@ function stopRetryWorker() {
   }
 }
 
+/**
+ * Validates retry worker running in retryService.
+ * @returns {*} Result produced by isRetryWorkerRunning.
+ */
 function isRetryWorkerRunning() {
   return _running;
 }
